@@ -119,6 +119,3 @@ PACoGen baseline:
 
 ---
 
-## Team
-
-Department of ECE — VLSI Architecture Course, 2025–26
