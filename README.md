@@ -1,4 +1,4 @@
-# posit-mul-impl-45nm
+# Posit-mul-impl-45nm
 
 **Course Implementation — Power-Efficient Posit Multiplier**  
 VLSI Architecture Course | Department of ECE | 2025–26
