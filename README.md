@@ -64,25 +64,13 @@ Only the active regions compute partial products — the rest are disabled, elim
 posit-mul-impl-45nm/
 │
 ├── rtl/
-│   ├── baseline/                  # Unmodified PACoGen posit multiplier
-│   │   └── posit_mul_pacogen.v
-│   └── proposed/                  # RTL implementation of Zhang & Ko 2020
-│       ├── posit_mul_top.v        # Top-level posit multiplier
-│       ├── posit_extract.v        # Sign, regime, exponent, mantissa extraction
-│       ├── ctl_gen.v              # Control signal generator from shift_rg
-│       ├── mantissa_mult_2r.v     # 2-region multiplier for N=8  (2×2 = 4 blocks)
-│       ├── mantissa_mult_4r4.v    # 4-region × 4-bit cells for N=16 (4×4 = 16 blocks)
-│       ├── mantissa_mult_4r8.v    # 4-region × 8-bit cells for N=32 (4×4 = 16 blocks)
-│       ├── ppg4.v                 # Gated 4-bit partial product generation block
-│       ├── ppg8.v                 # Gated 8-bit partial product generation block
-│       └── posit_pack.v           # Output posit packing + rounding
+│   ├── pacogen.v               # Unmodified PACoGen posit multiplier
+│   └── posit_mult_paper_param.v                
 │
-├── tb/                            # Testbenches
-│   ├── tb_posit_mul_8.v
-│   ├── tb_posit_mul_16.v
-│   └── tb_posit_mul_32.v
+├── tb/                            # Testbench
+│   └── tb_posit_mult_paper.v
 │
-├── synthesis/                     # Cadence Genus reports — 45nm GPDK
+├── synthesis_reports/                     # Cadence Genus reports — 45nm GPDK
 │   ├── 8_1/
 │   │   ├── Pacogen/
 │   │   │   ├── syn_opt_area.txt
@@ -95,10 +83,7 @@ posit-mul-impl-45nm/
 │   ├── 16_1/ ... 16_5/            # Same structure for each (N, es)
 │   └── 32_1/ ... 32_8/
 │
-├── docs/
-│   ├── presentation.pdf
-│   └── report.pdf
-│
+│── presentation.pdf
 └── README.md
 ```
 
@@ -116,7 +101,7 @@ Synthesized using Cadence Genus. Power compared against PACoGen baseline at the 
 | Posit(32,1)   | 25.978            | 25.573            | 6799              | 8957              | 1.33              | 0.703             | **47.1%** |
 | Posit(32,2)   | 25.829            | 25.498            | 6592              | 8560              | 1.24              | 0.680             | **45.1%** |
 
-Full reports (area, power, timing) for all `(N, es)` configurations are in `synthesis/`.
+Full reports (area, power, timing) for all `(N, es)` configurations are in `synthesis_reports/`.
 
 > Note: The original paper (90nm, Synopsys DC) reports an average 16% power reduction. Our results on 45nm GPDK show higher reduction on larger formats — differences are expected due to the different PDK, tool, and synthesis flow.
 
